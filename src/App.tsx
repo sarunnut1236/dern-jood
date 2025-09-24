@@ -106,44 +106,31 @@ export function App() {
 	}
 
 	return (
-		<div style={{
-			display: 'flex',
-			flexDirection: 'column',
-			gap: 16,
-			maxWidth: 420,
-			margin: '40px auto',
-			fontFamily: 'Inter, system-ui, Arial, sans-serif'
-		}}>
-			<h2 style={{ margin: 0 }}>Random BPM Metronome</h2>
-			<label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-				<span>Lowest BPM</span>
-				<input
-					type="number"
-					min={20}
-					max={300}
-					value={lowestBpm}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLowestBpm(Number(e.target.value))}
-				/>
-			</label>
-			<label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-				<span>Highest BPM</span>
-				<input
-					type="number"
-					min={20}
-					max={300}
-					value={highestBpm}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHighestBpm(Number(e.target.value))}
-				/>
-			</label>
-			<div style={{ display: 'flex', gap: 8 }}>
-				<button onClick={start} disabled={state === 'playing'}>Play</button>
-				<button onClick={stop} disabled={state === 'stopped'}>Stop</button>
-			</div>
-			<div style={{ color: '#555' }}>
-				<strong>Current BPM:</strong> {currentBpm ?? '—'}
-			</div>
-			<div style={{ color: '#777', fontSize: 12 }}>
-				Range being used: {clampedLowest}–{clampedHighest} BPM
+		<div className="app">
+			<div className="card">
+				<h2 className="title">Random BPM Metronome</h2>
+				<p className="subtitle">Every tick picks a new BPM between your low/high bounds.</p>
+				<div className="grid">
+					<label className="field">
+						<span className="label">Lowest BPM</span>
+						<input className="input" type="number" min={20} max={300} value={lowestBpm} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLowestBpm(Number(e.target.value))} />
+					</label>
+					<label className="field">
+						<span className="label">Highest BPM</span>
+						<input className="input" type="number" min={20} max={300} value={highestBpm} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHighestBpm(Number(e.target.value))} />
+					</label>
+				</div>
+				<div className="actions">
+					<button className="btn" onClick={start} disabled={state === 'playing'}>Play</button>
+					<button className="btn secondary" onClick={stop} disabled={state === 'stopped'}>Stop</button>
+				</div>
+				<div className="bpmRow">
+					<div>
+						<div className="muted">Current BPM</div>
+						<div className="bpmValue">{currentBpm ?? '—'}</div>
+					</div>
+					<div className="rangeNote muted">Range: {clampedLowest}–{clampedHighest} BPM</div>
+				</div>
 			</div>
 		</div>
 	)
